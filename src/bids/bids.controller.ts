@@ -17,11 +17,12 @@ import { UpdateBidDto } from './dto/update-bid.dto';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 
 @Controller('bids')
-@UseGuards(JwtAuthGuard, RolesGuard) // Apply JWT and Role Guards to all routes in this controller
+@UseGuards(JwtAuthGuard)
 export class BidsController {
   constructor(private readonly bidsService: BidsService) {}
 
   @Post('project/:projectId')
+  @UseGuards(RolesGuard)
   @Roles(UserRole.FREELANCER)
   async create(
     @Param('projectId') projectId: number,
@@ -33,6 +34,7 @@ export class BidsController {
   }
 
   @Patch(':bidId')
+  @UseGuards(RolesGuard)
   @Roles(UserRole.FREELANCER) // Only freelancers can update bids
   async update(
     @Param('bidId') bidId: number,

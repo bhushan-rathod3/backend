@@ -15,11 +15,12 @@ import { Roles } from 'src/common/decorators/roles.decorator';
 import { UserRole } from 'src/users/entities/user.entity';
 
 @Controller('projects')
-@UseGuards(JwtAuthGuard, RolesGuard)
+@UseGuards(JwtAuthGuard)
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
   @Post()
+  @UseGuards(RolesGuard)
   @Roles(UserRole.CLIENT)
   async create(@Req() req, @Body() createProjectDto: CreateProjectDto) {
     const clientId = req.user['id'];

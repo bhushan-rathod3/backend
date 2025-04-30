@@ -58,7 +58,7 @@
 
 ### **2. Register**
 
-- **Endpoint**: `POST /auth/register`
+- **Endpoint**: `POST /users/register`
 - **Payload**:
   ```json
   {
